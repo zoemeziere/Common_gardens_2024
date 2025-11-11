@@ -1,8 +1,8 @@
 # Scripts and data to support manuscript "Thermal stress responses and survival differ among closely related coral taxa of the Stylophora pistillata species complex during a heatwave"
 
-A. Scripts for calling variants for host whole genome sequence data
+### A. Scripts for calling variants for host whole genome sequence data
 
-B. Scripts for data analyses and visualisation
+### B. Scripts for data analyses and visualisation
 
 01_ereefs_data.R
 
