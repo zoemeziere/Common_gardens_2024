@@ -1,11 +1,11 @@
 library(dplyr)
 
-experiments_metadata_lng <- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/experiments_metadata_lng.csv")
-Taxon1_data_lng <- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/Taxon1_data_lng.csv")
+AllTaxa_data_lng <- read.csv("Data/All_taxa_data/allTaxa_metadata_lng.csv")
+Taxon1_data_lng <- read.csv("Data/Taxon1_data/Taxon1_data_lng.csv")
 
-experiments_data_responses <- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/experiments_data_responses.csv")
-Taxon1_data_responses <- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/Taxon1_data_responses.csv")
-Taxon1_data_responses_filtered<- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/Taxon1_data_responses_filtered.csv")
+Alltaxa_responses <- read.csv("Data/All_taxa_data/allTaxa_responses.csv")
+Taxon1_responses <- read.csv("Data/Taxon1_data/Taxon1_responses.csv")
+Taxon1_responses_filtered<- read.csv("Data/Taxon1_data/Taxon1_responses_filtered.csv")
 
 cols_taxa <- c("Taxon1" = "mediumorchid", "Taxon4" = "darkorange1", "Taxon5" = "olivedrab3")  
 
@@ -21,7 +21,7 @@ time_without_bleaching <- function(group) {
   return(12)
 }
 
-experiments_metadata_lng <- experiments_metadata_lng %>%
+AllTaxa_data_lng <- AllTaxa_data_lng %>%
   group_by(FragID) %>%
   mutate(time_without_bleaching = time_without_bleaching(cur_data())) %>%
   ungroup()
@@ -35,11 +35,11 @@ Taxon1_data_lng <- Taxon1_data_lng %>%
        
 emm_LTU_df <- as.data.frame(emm_LTU)
 
-colony_means <- experiments_data_responses %>%
+colony_means <- Alltaxa_responses %>%
        group_by(Taxon, IndividualID) %>%
        summarise(time_without_bleaching = mean(time_without_bleaching, na.rm = TRUE), .groups = "drop")
 
-ggplot(experiments_data_responses, aes(x = Taxon, y = time_without_bleaching, fill = Taxon)) +
+ggplot(Alltaxa_responses, aes(x = Taxon, y = time_without_bleaching, fill = Taxon)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   
   # Colony-level means
@@ -71,7 +71,7 @@ time_without_death <- function(group) {
     return(12)
 }
                          
-experiments_metadata_lng <- experiments_metadata_lng %>%
+AllTaxa_data_lng <- AllTaxa_data_lng %>%
   group_by(FragID) %>%
   mutate(time_alive = time_without_death(cur_data())) %>%
   ungroup()
@@ -85,11 +85,11 @@ Taxon1_data_lng <- Taxon1_data_lng %>%
 
 emm_LTA_df <- as.data.frame(emm_LTA)
 
-colony_means <- experiments_data_responses %>%
+colony_means <- Alltaxa_responses %>%
   group_by(Taxon, IndividualID) %>%
   summarise(mean_time_alive = mean(time_alive, na.rm = TRUE), .groups = "drop")
 
-ggplot(experiments_data_responses, aes(x = Taxon, y = time_alive, fill = Taxon)) +
+ggplot(Alltaxa_responses, aes(x = Taxon, y = time_alive, fill = Taxon)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   
   # Colony-level means
@@ -111,16 +111,16 @@ ggplot(experiments_data_responses, aes(x = Taxon, y = time_alive, fill = Taxon))
 
 # Maximum bleaching #####
 
-experiments_metadata_lng <- experiments_metadata_lng %>%
+AllTaxa_data_lng <- AllTaxa_data_lng %>%
   group_by(FragID) %>%
   mutate(max_bleaching = max(BleachedArea, na.rm = TRUE)) %>%
   ungroup()
 
-colony_bleach_means <- experiments_metadata_lng %>%
+colony_bleach_means <- AllTaxa_data_lng %>%
   group_by(Taxon, IndividualID) %>%
   summarise(mean_max_bleach = mean(max_bleaching, na.rm = TRUE), .groups = "drop")
 
-Taxon1_data_responses <- Taxon1_data_responses %>%
+Taxon1_responses <- Taxon1_responses %>%
   group_by(FragID) %>%
   mutate(max_bleaching = max(BleachedArea, na.rm = TRUE)) %>%
   ungroup()
@@ -129,7 +129,7 @@ Taxon1_data_responses <- Taxon1_data_responses %>%
 
 emm_MB_df <- as.data.frame(emm_MB)
 
-ggplot(experiments_metadata_lng, aes(x = Taxon, y = max_bleaching, fill = Taxon)) +
+ggplot(AllTaxa_data_lng, aes(x = Taxon, y = max_bleaching, fill = Taxon)) +
   geom_boxplot(outlier.shape = NA, alpha = 0.7) +
   
   # Colony-level means
@@ -185,18 +185,17 @@ time_to_recover_paling <- function(group) {
   return(recovery_time - min_time)
 }
 
-experiments_data_responses <- experiments_data_responses %>%
+Alltaxa_responses <- Alltaxa_responses %>%
   group_by(FragID) %>%
   mutate(time_to_recovery_paling = time_to_recover_paling(cur_data())) %>%
   ungroup()
 
 # plot
-
-colony_means_paling <- experiments_data_responses %>%
+colony_means_paling <- Alltaxa_responses %>%
   group_by(Taxon, IndividualID) %>%
   summarise(time_to_recovery_paling = mean(time_to_recovery_paling, na.rm = TRUE), .groups = "drop")
 
-ggplot(experiments_data_responses, aes(x = Taxon, y = time_to_recovery_paling, fill = Taxon)) +
+ggplot(Alltaxa_responses, aes(x = Taxon, y = time_to_recovery_paling, fill = Taxon)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
   
   # Colony-level means

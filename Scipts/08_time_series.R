@@ -1,6 +1,6 @@
-# Exploring time series by taxon for bleaching status and survival
+# 1. Exploring time series by taxon for bleaching status and survival
 
-experiments_metadata_lng <- read.csv("experiments_metadata_lng.csv")
+experiments_metadata_lng <- read.csv("Data/All_taxa_data/allTaxa_metadata_lng.csv")
 
 experiments_metadata_lng$TimePoint <- factor(experiments_metadata_lng$TimePoint, 
                                              levels = c("T0", "T1", "T2", "T3", "T4", "T5", 
@@ -32,9 +32,9 @@ ggplot(summary_data, aes(x = Bleaching, y = count, fill = Bleaching)) +
   facet_grid(Taxon ~ TimePoint, scales = "free_y")
 
 
-# Exploring time series by location for bleaching status and survival
+# 2. Exploring time series by location for bleaching status and survival
 
-Taxon1_data_lng <- read.csv("Taxon1_data_lng.csv")
+Taxon1_data_lng <- read.csv("Data/Taxon1_data/Taxon1_data_lng.csv")
 
 Taxon1_data_lng$TimePoint <- factor(Taxon1_data_lng$TimePoint, 
                                              levels = c("T0", "T1", "T2", "T3", "T4", "T5", 

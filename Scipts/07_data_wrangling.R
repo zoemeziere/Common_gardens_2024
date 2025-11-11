@@ -1,18 +1,13 @@
-# Loading packages and metadata wrangling --------------------------------------
 library(ggplot2)
 library(tidyr)
 library(colorspace)
 library(ggpubr)
 library(dplyr)
 
-experiments_metadata_raw <- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/Experiment_Metadata.csv")
-genetics_metadata <- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/Experiment_MetadataGenetics.csv")
-experiments_metadata <- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/experiments_merged.csv")
+genetics_metadata <- read.csv("Data/Metadata/Experiment_MetadataGenetics.csv")
+all_taxa_data <- read.csv("Data/All_taxa_data/allTaxa_merged.csv")
 
-experiments_metadata_lng <- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/experiments_metadata_lng.csv")
-
-# Transform into long format
-experiments_metadata_lng <- experiments_metadata %>%
+experiments_metadata_lng <- all_taxa_data %>%
   pivot_longer(
     cols = -c(IndividualID, FragID, LocationID, TableID, SumpID, TankID, DeathDate, Depth, 
               Reassessment_survival, Longitude, Latitude, Taxon, Reassessment_bleaching, TempMaxMM,
@@ -29,11 +24,11 @@ experiments_metadata_lng$Bleaching <- factor(experiments_metadata_lng$Bleaching,
 experiments_metadata_lng <- experiments_metadata_lng %>% separate(CoralWatch, 
                                                                   into=c('CoralWatchLetter', 'CoralWatchNumber'), sep = "(?<=[A-Za-z])(?=[0-9])")
 
-write.csv(experiments_metadata_lng, "/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/experiments_metadata_lng.csv")
+write.csv(experiments_metadata_lng, "Data/All_taxa_data/allTaxa_metadata_lng.csv")
 
 # Taxon1 only
 Taxon1_data <- experiments_metadata_lng[experiments_metadata_lng$Taxon=="Taxon1",]
-write.csv(Taxon1_data, "/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/Taxon1_data_lng.csv")
+write.csv(Taxon1_data, "Data/Taxon1_data/allTaxa_metadata_lng.csv")
 
 
 

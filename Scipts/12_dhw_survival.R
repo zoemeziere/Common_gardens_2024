@@ -5,39 +5,39 @@ library(ggplot2)
 library(tidyr)
 library(survminer)
 
-experiments_metadata_lng <- read.csv("Data/Analysis_data/experiments_metadata_lng.csv")
-DHW_data <- read.csv("Data/Analysis_data/DHW_data.csv")
+AllTaxa_data_lng <- read.csv("Data/All_taxa_data/allTaxa_metadata_lng.csv")
+DHW_data <- read.csv("Data/Env_data/DHW_data.csv")
 
-experiments_metadata_lng <- experiments_metadata_lng %>%
+AllTaxa_data_lng <- AllTaxa_data_lng %>%
   mutate(date = as.Date(Date, format = "%d/%m/%Y")) 
 
 DHW_data <- DHW_data %>%
   mutate(date = as.Date(date, format = "%Y-%m-%d"))
 
-# Join DHW data from DHW_data to experiments_metadata_lng
-experiments_metadata_DHW <- experiments_metadata_lng %>%
+# 1. Join DHW data from DHW_data to AllTaxa_data_lng
+experiments_metadata_DHW <- AllTaxa_data_lng %>%
   left_join(
     DHW_data %>% dplyr::select(date, DHW),
     by = "date")
 
-# Make sure surival status is numeric 0/1 in experiments_metadata_DHW
+# 2. Make sure survival status is numeric 0/1 in experiments_metadata_DHW
 experiments_metadata_DHW <- experiments_metadata_DHW %>%
   mutate(
     status = ifelse(Survival == "Dead", 1, 0),
     Taxon = factor(Taxon)) %>%
   mutate(Taxon = relevel(Taxon, ref = "Taxon1"))
 
-# Make sure bleaching status is numeric 0/1 in experiments_metadata_DHW
+# 3. Make sure bleaching status is numeric 0/1 in experiments_metadata_DHW
 experiments_metadata_DHW <- experiments_metadata_DHW %>%
   mutate(
     status_bleaching = ifelse(Bleaching == "NoBleaching", 0, 1),
     Taxon = factor(Taxon)) %>%
   mutate(Taxon = relevel(Taxon, ref = "Taxon1"))
 
-# Find peak DHW date in the dataset
+# 4. Find peak DHW date in the dataset
 peak_date <- DHW_data %>% filter(DHW == max(DHW)) %>% pull(date)
 
-# Survival analysis over DHW --- Before peak DHW ----
+# 5. Survival analysis over DHW --- Before peak DHW ----
 
 # Filter metadata to only include records up to peak date
 experiments_metadata_DHW_before <- experiments_metadata_DHW %>%
@@ -75,7 +75,7 @@ reduced_model <- coxme(dhw_surv_object_before ~ 1 + (1 | SumpID/TankID) + (1 | S
 lrt <- anova(reduced_model, full_model)
 print(lrt)
 
-# Survival analysis over DHW --- After peak DHW ----
+# 6. Survival analysis over DHW --- After peak DHW ----
 
 # Filter metadata to only include records up to peak date
 experiments_metadata_DHW_after <- experiments_metadata_DHW %>%
@@ -102,7 +102,7 @@ coxph_model <- coxme(dhw_km_fit_before ~ Taxon + (1 | SumpID/TankID) + (1 | Indi
                      data = experiments_metadata_DHW_before)
 summary(coxph_model)
 
-# Bleaching analysis over DHW --- Before peak DHW ----
+# 7. Bleaching analysis over DHW --- Before peak DHW ----
 
 # Filter metadata to only include records up to peak date
 experiments_metadata_DHW_before <- experiments_metadata_DHW %>%
@@ -125,7 +125,7 @@ ggsurvplot(
   fun = "event",
   palette = c("mediumorchid", "darkorange1", "olivedrab3"))
 
-# Bleaching analysis over DHW --- After peak DHW ----
+# 8. Bleaching analysis over DHW --- After peak DHW ----
 
 # Filter metadata to only include records up to peak date
 experiments_metadata_DHW_after <- experiments_metadata_DHW %>%

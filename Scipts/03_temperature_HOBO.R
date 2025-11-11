@@ -5,12 +5,12 @@ library(readxl)
 library(purrr)
 library(zoo)
 
-HoboC1<- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Raw_data/HOBO_data/Hobo_control1.csv")
-HoboC2<- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Raw_data/HOBO_data/Hobo_control2.csv")
-HoboT11<- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Raw_data/HOBO_data/Hobo_treat1_1.csv")
-HoboT12<- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Raw_data/HOBO_data/Hobo_treat1_2.csv")
-HoboT22<- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Raw_data/HOBO_data/Hobo_treat2_2.csv")
-HoboT21<- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Raw_data/HOBO_data/Hobo_treat2_1.csv")
+HoboC1<- read.csv("Data/Logger_data/Hobo_control1.csv")
+HoboC2<- read.csv("Data/Logger_data/Hobo_control2.csv")
+HoboT11<- read.csv("Data/Logger_data/Hobo_treat1_1.csv")
+HoboT12<- read.csv("Data/Logger_data/Hobo_treat1_2.csv")
+HoboT22<- read.csv("Data/Logger_data/Hobo_treat2_2.csv")
+HoboT21<- read.csv("Data/Logger_data/Hobo_treat2_1.csv")
 
 HoboC1$DateTime <- as.POSIXct(HoboC1$DateTime, format='%m/%d/%Y %H:%M:%S')
 HoboC2$DateTime <- as.POSIXct(HoboC2$DateTime, format='%m/%d/%Y %H:%M:%S')
@@ -58,7 +58,7 @@ ggplot(data = hobo_combined, aes(x = DateTime, y = Temperature, colour = Sensor)
 MMM <- 27.3 
 
 # Prepare NOAA SST (already daily) ---
-sst_data <- read.csv("Data/Analysis_data/Temperature/Heron_Island_SST_NovMay2024.csv")
+sst_data <- read.csv("Data/Env_data/Heron_Island_SST_NovMay2024.csv")
 
 sst_data <- sst_data %>%
   mutate(date = as.Date(date),
@@ -85,7 +85,7 @@ all_sst <- all_sst %>%
                          FUN = function(x) sum(x, na.rm = TRUE)/7, # °C-weeks
                          align = "right", fill = NA))
 
-write.csv(all_sst, "Data/Analysis_data/DHW_data.csv")
+write.csv(all_sst, "Data/Env_data/DHW_data.csv")
 
 # Plot ---
 ggplot(all_sst, aes(x = date)) +

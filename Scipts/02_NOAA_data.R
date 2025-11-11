@@ -2,7 +2,7 @@ library(httr)
 library(ncdf4)
 library(tidyverse)
 
-#### Download SST NOAA data ####
+#### 1. Download SST NOAA data ####
 
 base_url <- "https://www.ncei.noaa.gov/thredds-ocean/fileServer/crw/5km/v3.1/nc/v1.0/daily/sst/2024/"
 base_url <- "https://www.ncei.noaa.gov/thredds-ocean/fileServer/crw/5km/v3.1/nc/v1.0/daily/sst/2023/"
@@ -57,9 +57,9 @@ extract_sst <- function(nc_file, lat_target, lon_target) {
 sst_data <- map_dfr(nc_files, extract_sst, lat_target = -23.472241, lon_target = 151.959921)
 sst_data <- as.data.frame(sst_data)
   
-write.csv(sst_data, "Data/Analysis_data/Temperature/Heron_Island_SST_NovMay2024.csv", row.names = FALSE)
+write.csv(sst_data, "Data/Env_data/Heron_Island_SST_NovMay2024.csv", row.names = FALSE)
 
-#### Download DHW NOAA data ####
+#### 2. Download DHW NOAA data ####
 
 base_url <- "https://www.ncei.noaa.gov/thredds-ocean/fileServer/crw/5km/v3.1/nc/v1.0/daily/dhw/2024/"
 dates <- seq(as.Date("2024-02-03"), as.Date("2024-04-26"), by = "day")
@@ -82,7 +82,7 @@ for (current_date_num in dates) {
 }
 
 nc_files <- list.files(
-  path = "Data/Analysis_data/Temperature/DHW_2024",
+  path = "Temperature/DHW_2024",
   pattern = "\\.nc$",
   full.names = TRUE
 )
@@ -116,4 +116,4 @@ extract_dhw <- function(nc_file, lat_target, lon_target) {
 dhw_data <- map_dfr(nc_files, extract_dhw, lat_target = -23.472241, lon_target = 151.959921)
 dhw_data <- as.data.frame(dhw_data)
 
-write.csv(dhw_data, "Data/Analysis_data/Temperature/Heron_Island_DHW_JanMay2024.csv", row.names = FALSE)
+write.csv(dhw_data, "Data/Env_data/Heron_Island_DHW_JanMay2024.csv", row.names = FALSE)

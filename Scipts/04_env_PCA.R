@@ -1,6 +1,6 @@
 # script to perform PCA on environmental variables from collection sites of experiment
 
-experiments_metadata <- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/experiments_data_responses_with_thermal_metrics.csv")
+experiments_metadata <- read.csv("Data/All_taxa_data/allTaxa_responses_with_thermal_metrics.csv")
 
 dat_scaled <- scale(experiments_metadata[,35:39])
 pca <- prcomp(dat_scaled)
@@ -35,11 +35,11 @@ ggplot(scores, aes(x = PC1, y = PC2, color = LocationID)) +
   theme_bw()
 
 pc_scores <- cbind(scores$PC1, scores$PC2)
-write.csv(pc_scores, "pc_scores_env_five_metrics_T1.csv")
+write.csv(pc_scores, "Data/Env_data/pc_scores_env.csv")
 
 # Assign PC scores to samples
 pc_scores_df <- as.data.frame(pc_scores)
 colnames(pc_scores_df) <- c("tempPC1", "tempPC2")
 metadata_with_pc <- cbind(experiments_metadata, pc_scores_df)
 
-write.csv(metadata_with_pc, "/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/experiments_data_responses_with_thermal_metrics.csv", row.names = FALSE)
+write.csv(metadata_with_pc, "Data/All_taxa_data/allTaxa_responses_with_thermal_metrics.csv", row.names = FALSE)

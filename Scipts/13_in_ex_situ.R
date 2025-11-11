@@ -2,11 +2,10 @@ library(dplyr)
 library(ggplot2)
 library(ggpattern)
 
-genetics_metadata <- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/Experiment_MetadataGenetics.csv")
-experiments_metadata <- read.csv("/Users/zoemeziere/Documents/PhD/Chapter4_analyses/Data/Analysis_data/experiments_merged.csv")
+genetics_metadata <- read.csv("Data/Metadata/Experiment_MetadataGenetics.csv")
+experiments_metadata <- read.csv("Data/Metadata/Experiment_Metadata.csv")
 
-# Colony level exp survival 
-
+# 1. Colony level exp survival 
 survival_summary <- experiments_metadata %>%
   group_by(IndividualID) %>%
   summarise(
@@ -14,10 +13,8 @@ survival_summary <- experiments_metadata %>%
     survival_exp = case_when(
       dead_count == 2 ~ "Dead",
       dead_count <= 1 ~ "Alive",
-      TRUE ~ "Dead"
-    ),
-    .groups = "drop"
-  )
+      TRUE ~ "Dead"),
+    .groups = "drop")
 
 genetics_metadata <- genetics_metadata %>%
   left_join(survival_summary, by = "IndividualID") %>%
@@ -25,53 +22,28 @@ genetics_metadata <- genetics_metadata %>%
     Reassessment_survival = case_when(
       Reassessment_survival == "PartiallyDead" ~ "Alive",
       Reassessment_survival == "" ~ "NotFound",
-      TRUE ~ Reassessment_survival
-    )
-  )
+      TRUE ~ Reassessment_survival))
 
 genetics_metadata$Reassessment_survival[genetics_metadata$Reassessment_survival == ""] <- "NotFound"
 
-# tests to compare survival
-
+# 2. Tests to compare survival
 survival_table <- table(genetics_metadata$Reassessment_survival, genetics_metadata$survival_exp)
 print(survival_table)
 
 chi_square_result <- chisq.test(survival_table)
 print(chi_square_result)
 
-# Plot with patterns - for all and for each taxon
-
+# 3. Plot with patterns - for all and for each taxon
 ggplot(genetics_metadata, aes(x = survival_exp, fill = Reassessment_survival, pattern = Reassessment_survival)) +
        geom_bar_pattern(position = "dodge", color = "black", fill = "grey70",
        pattern_fill = "black", pattern_density = 0.3, pattern_spacing = 0.02, pattern_angle = 45) +
        scale_pattern_manual(values = c("Alive" = "none", "Dead" = "stripe","NotFound" = "circle" )) +
        scale_fill_manual(values = c("Alive" = "grey70", "Dead" = "grey70", "NotFound" = "grey70")) +
        labs(x = "Experimental Survival", y = "Count") +
-       theme_bw()
+       theme_bw() +
+        facet_wrap(~ Taxon, nrow = 1, ncol = 3)
 
-ggplot(genetics_metadata, 
-       aes(x = survival_exp, 
-           fill = Reassessment_survival, 
-           pattern = Reassessment_survival)) +
-  geom_bar_pattern(position = "dodge", 
-                   color = "black", 
-                   fill = "grey70",
-                   pattern_fill = "black", 
-                   pattern_density = 0.3, 
-                   pattern_spacing = 0.02, 
-                   pattern_angle = 45) +
-  scale_pattern_manual(values = c("Alive" = "none", 
-                                  "Dead" = "stripe", 
-                                  "NotFound" = "circle")) +
-  scale_fill_manual(values = c("Alive" = "grey70", 
-                               "Dead" = "grey70", 
-                               "NotFound" = "grey70")) +
-  labs(x = "Experimental Survival", y = "Count") +
-  theme_bw() +
-  facet_wrap(~ Taxon, nrow = 1, ncol = 3)
-
-# Kappa test
-
+# 4. Kappa test
 genetics_metadata_sub <- genetics_metadata %>%
   mutate(Reassessment_survival = na_if(Reassessment_survival, "")) %>%
   filter(!is.na(Reassessment_survival))
@@ -87,8 +59,7 @@ kappa_data <- genetics_metadata_sub %>%
 kappa_result <- irr::kappa2(kappa_data)
 print(kappa_result)
 
-# Kappa test by taxon
-
+# 5. Kappa test by taxon
 kappa_by_taxon <- genetics_metadata_sub %>%
   group_by(Taxon) %>%
   summarise(
@@ -104,83 +75,32 @@ kappa_by_taxon <- kappa_by_taxon %>%
 
 print(kappa_by_taxon)
 
-# Heat map plots
-
+# 6. Heat map plots
 genetics_metadata_sub <- genetics_metadata %>%
   mutate(Reassessment_survival = na_if(Reassessment_survival, "")) %>%
   filter(!is.na(Reassessment_survival))
 
-# Create a single contingency table across all taxa
 contingency_all <- table(
   genetics_metadata_sub$Reassessment_survival,
-  genetics_metadata_sub$survival_exp
-)
+  genetics_metadata_sub$survival_exp)
 
-# Convert to data frame and rename columns
 heatmap_data_long <- as.data.frame(contingency_all) %>%
-  rename(
-    Reassessment_survival = Var1,
-    survival_exp = Var2
-  ) %>%
-  mutate(
-    Total = sum(Freq),
+  rename(Reassessment_survival = Var1, survival_exp = Var2) %>%
+  mutate(Total = sum(Freq),
     Prop = Freq / Total,
-    FractionLabel = paste0(Freq, "/", Total)
-  )
+    FractionLabel = paste0(Freq, "/", Total))
 
-# Plot
 ggplot(heatmap_data_long, aes(x = survival_exp, y = Reassessment_survival, fill = Prop)) +
   geom_tile(color = "white") +
   geom_text(aes(label = FractionLabel), color = "black") +
   scale_fill_gradient(low = "beige", high = "darkorange4") +
-  labs(
-    x = "Common Garden Survival",
+  labs(x = "Common Garden Survival",
     y = "Field Survival",
-    fill = "Proportion"
-  ) +
+    fill = "Proportion") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-# Heat map right/wrong
-
-heatmap_data_long <- heatmap_data_long %>%
-  mutate(
-    Reassessment_survival = tolower(Reassessment_survival),
-    survival_exp = tolower(survival_exp),
-    category = case_when(
-      Reassessment_survival == "alive" & survival_exp == "alive" ~ "Correct",
-      Reassessment_survival == "dead"  & survival_exp == "dead"  ~ "Correct",
-      Reassessment_survival == "alive" & survival_exp == "dead"  ~ "Mismatch",
-      Reassessment_survival == "dead"  & survival_exp == "alive" ~ "Mismatch",
-      Reassessment_survival == "notfound" & survival_exp == "dead" ~ "Correct",
-      Reassessment_survival == "notfound" & survival_exp == "alive" ~ "Mismatch",
-      TRUE ~ "Other"
-    ),
-    alpha_val = Freq / max(Freq)  # for shading intensity
-  )
-
-# Color mapping
-color_map <- c(
-  "Correct"    = "cadetblue3",
-  "Mismatch"   = "coral")
-
-# Plot
-ggplot(heatmap_data_long, aes(x = survival_exp, y = Reassessment_survival)) +
-  geom_tile(aes(fill = category, alpha = alpha_val), color = "white") +
-  geom_text(aes(label = Freq), color = "black") +
-  scale_fill_manual(values = color_map) +
-  scale_alpha(range = c(0.3, 1), guide = "none") +
-  labs(
-    x = "Common Garden Survival",
-    y = "Field Survival",
-    fill = "Classification"
-  ) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-
-# Heat map for the three taxa separately
-
+# 7. Heat map for the three taxa separately
 genetics_metadata_sub <- genetics_metadata %>%
   mutate(Reassessment_survival = na_if(Reassessment_survival, "")) %>%
   filter(!is.na(Reassessment_survival))
@@ -189,13 +109,10 @@ contingency_by_taxon <- genetics_metadata_sub %>%
   group_by(Taxon) %>%
   summarise(
     table_list = list(table(Reassessment_survival, survival_exp)),
-    .groups = "drop"
-  )
+    .groups = "drop")
 
 heatmap_data <- contingency_by_taxon %>%
-  mutate(
-    df = map(table_list, ~ as.data.frame(.x))
-  )
+  mutate(df = map(table_list, ~ as.data.frame(.x)))
 
 heatmap_data_long <- heatmap_data %>%
   dplyr::select(Taxon, df) %>%
@@ -218,9 +135,7 @@ ggplot(heatmap_data_long, aes(x = survival_exp, y = Reassessment_survival, fill 
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
-# Frag level exp survival
-
+# 8. Frag level exp survival
 post_bleaching_metadata <- left_join(experiments_metadata, genetics_metadata, by="IndividualID")
 post_bleaching_metadata <- cbind("FragID"=post_bleaching_metadata$FragID, 
                                  "IndividualID"=post_bleaching_metadata$IndividualID,
