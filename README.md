@@ -10,24 +10,24 @@ This repository contains scripts and supporting data for the manuscript:
 
 The repository is organised into two main sections:
 
-1. **A. Variant Calling for Host Whole Genome Sequence Data**  
+ **A. Variant calling for host whole genome sequence data**  
    Scripts for processing raw sequencing reads, variant calling, and quality control.
 
-2. **B. Data Analyses and Visualisation**  
+ **B. Data analyses and visualisation**  
    R scripts used to analyse environmental, genomic, and phenotypic datasets, and to reproduce figures from the manuscript.
 
 Each script is numbered to indicate its order in the analytical workflow.
 
 ---
 
-## A. Scripts for Calling Variants
+## A. Scripts for calling variants
 
 Scripts in this section process whole-genome sequencing data of the coral host to obtain high-quality SNPs for downstream analyses.  
 *(See manuscript Methods for details.)*
 
 ---
 
-## B. Scripts for Data Analyses and Visualisation
+## B. Scripts for data Analyses and visualisation
 
 ### **01_ereefs_data.R**
 - Retrieve temperature data from **eReefs** for sampling sites  
