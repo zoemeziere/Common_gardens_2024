@@ -47,9 +47,9 @@ Scripts in this section process whole-genome sequencing data of the coral host t
 
 ### **05_genomic_PCA.R**
 - Perform PCA on genomic SNP data  
-  - All individuals  
-  - Subset with outgroup samples representing three cryptic taxa  
-  - Subset of five samples per taxon  
+  - For all individuals,  
+  - For all individuals together with outgroup samples representive of the three cryptic taxa, and  
+  - For a subset of five samples per taxon  
 - Code reproduces **Figure 2A**
 
 ### **06_taxon_distribution.R**
@@ -57,27 +57,26 @@ Scripts in this section process whole-genome sequencing data of the coral host t
 - Code reproduces **Figure 2C**
 
 ### **07_data_wrangling.R**
-- Reshape and clean datasets into long format for downstream analyses  
+- Reshape datasets into long format for downstream analyses  
 
 ### **08_time_series.R**
-- Analyse key phenotypic traits across time points  
+- Analyse bleaching data across time points  
 - Code reproduces **Figure 3A**
 
 ### **09_phenotypic_responses.R**
 - Calculate phenotypic response metrics from time series data  
 
 ### **10_GLM.R**
-- Fit Generalised Linear Models (GLMs) to phenotypic traits  
-- Analyse all taxa and Taxon 1 separately  
+- Fit Generalised Linear Models (GLMs) to phenotypic traits for all taxa and for Taxon 1 only   
 - Test model significance and estimate marginal means  
 - Code reproduces **Figure 4**
 
 ### **11_survival_analyses.R**
-- Perform survival analyses across taxa  
+- Perform survival analyses for all taxa  
 - Code reproduces **Figure 3**
 
 ### **12_dhw_survival.R**
-- Compare survival before and after peak DHW exposure  
+- Compare survival before and after peak DHW  
 - Code reproduces **Figure SX**
 
 ### **13_in_ex_situ.R**
@@ -89,7 +88,7 @@ Scripts in this section process whole-genome sequencing data of the coral host t
 
 ---
 
-## ⚙️ Reproducibility Notes
+## Reproducibility Notes
 
 - Analyses were performed in **R version 4.3**.  
 - All data files necessary to run the scripts are located in the Data folder and scripts follow directory structure.  
