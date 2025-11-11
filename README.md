@@ -4,11 +4,11 @@
 
 ### B. Scripts for data analyses and visualisation
 
-01_ereefs_data.R
+#### 01_ereefs_data.R
 
 Obtaining temperature data from eReefs for sampling sites and calculating derived metrics
 
-02_NOAA_data.R
+#### 02_NOAA_data.R
 
 Obtaining temperature data from NOAA to calculate Degree Heating Weeks 
 
