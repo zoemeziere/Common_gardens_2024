@@ -10,9 +10,9 @@ In this study, we explored  thermal tolerance in the *Stylophora pistillata* spe
 
 ## Repository Structure
 
-The repository is organised into two main sections: **Data** and **Scripts**. 
+The repository is organised into two main sections: **Data** and **Scripts**. Scripts are separated into two sections: A) to process whole-genome sequencing data of the coral host to obtain high-quality SNPs for downstream analyses and B) to perform statistical analyses and visualise results. Each script is numbered to indicate its order in the analytical workflow.
 
-### 1. Data:  Raw and processed data used for analyses
+## 1. Data:  Raw and processed data used for analyses
 
 **All_taxa_data**  
 - `allTaxa_merged.csv`: Master merged table of taxa responses and metadata.  
@@ -57,11 +57,11 @@ The repository is organised into two main sections: **Data** and **Scripts**.
 
 ---
 
-### 2. Scripts:  Scripts to process data and visualise results
+## 2A. Scripts for whole-genome sequencing data processing
 
-### 2A. Scripts used to process whole-genome sequencing data of the coral host to obtain high-quality SNPs for downstream analyses. Each script is numbered to indicate its order in the analytical workflow. 
+---
 
-### 2B. Scripts used for data analyses and visualisation. Each script is numbered to indicate its order in the analytical workflow.
+## 2B. Scripts for data analyses and visualisation
    
 **01_ereefs_data.R**  
 - Downloads/reads eReefs layers, formats and aggregates environmental variables.  
