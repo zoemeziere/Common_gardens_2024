@@ -13,7 +13,7 @@ In this study, we explored  thermal tolerance in the Stylophora pistillata speci
 
 The repository is organised into two main sections: Data and Scripts. 
 
-### 1. Data - Raw and processed data used for analyses
+1. Data - Raw and processed data used for analyses
      **All_taxa_data**
 
      **Env_data**
@@ -28,7 +28,7 @@ The repository is organised into two main sections: Data and Scripts.
 
      **Taxon1_data**
 
-### 2. Scripts - Bash and R Scripts used for analyses. Each script is numbered to indicate its order in the analytical workflow.
+2. Scripts - Bash and R Scripts used for analyses. Each script is numbered to indicate its order in the analytical workflow.
    
     **Variant calling for host whole genome sequence data**  
       Scripts in this section process whole-genome sequencing data of the coral host to obtain high-quality SNPs for downstream analyses.
