@@ -48,7 +48,7 @@ The repository is organised into two main sections: Data and Scripts.
       - Compare in situ logger (HOBO) temperature data with NOAA data  
       - Code reproduces **Figure 1A**
       
-      #**04_env_PCA.R**
+      **04_env_PCA.R**
       - Perform PCA on environmental data across sites  
       - Code reproduces **Figure SX**
       
@@ -70,7 +70,7 @@ The repository is organised into two main sections: Data and Scripts.
       - Analyse bleaching data across time points  
       - Code reproduces **Figure 3A**
       
-      #**09_phenotypic_responses.R**
+      **09_phenotypic_responses.R**
       - Calculate phenotypic response metrics from time series data  
       
       **10_GLM.R**
