@@ -57,11 +57,11 @@ The repository is organised into two main sections: **Data** and **Scripts**.
 
 ---
 
-### 1. Scripts:  Scripts to process data and visualise results
+### 2. Scripts:  Scripts to process data and visualise results
 
-2A. Scripts used to process whole-genome sequencing data of the coral host to obtain high-quality SNPs for downstream analyses. Each script is numbered to indicate its order in the analytical workflow. 
+### 2A. Scripts used to process whole-genome sequencing data of the coral host to obtain high-quality SNPs for downstream analyses. Each script is numbered to indicate its order in the analytical workflow. 
 
-2B. Scripts used for data analyses and visualisation. Each script is numbered to indicate its order in the analytical workflow.
+### 2B. Scripts used for data analyses and visualisation. Each script is numbered to indicate its order in the analytical workflow.
    
 **01_ereefs_data.R**  
 - Downloads/reads eReefs layers, formats and aggregates environmental variables.  
