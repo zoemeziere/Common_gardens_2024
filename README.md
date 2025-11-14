@@ -102,7 +102,12 @@ The repository is organised into two main sections: Data and Scripts.
 - Required R packages are listed at the beginning of each script.
 - R info session:
 
-> sessionInfo()
+<details>
+<summary><strong>Click to expand sessionInfo()</strong></summary>
+
+```txt
+
+sessionInfo()
 R version 4.4.3 (2025-02-28)
 Platform: aarch64-apple-darwin20
 Running under: macOS Sequoia 15.6
@@ -163,4 +168,4 @@ loaded via a namespace (and not attached):
 [109] plyr_1.8.9          fs_1.6.6            gap.datasets_0.0.6  stringi_1.8.7      
 [113] viridisLite_0.4.2   hms_1.1.3           gdistance_1.6.4     pegas_1.3          
 [117] seqinr_4.2-36       RgoogleMaps_1.5.3   shiny_1.11.1        rbibutils_2.3      
-[121] igraph_2.1.4        broom_1.0.10        ape_5.8-1 
+[121] igraph_2.1.4        broom_1.0.10        ape_5.8-1
