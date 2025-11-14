@@ -10,100 +10,83 @@ In this study, we explored  thermal tolerance in the *Stylophora pistillata* spe
 
 ## Repository Structure
 
-The repository is organised into two main sections: **Data** and **Scripts**. Scripts are separated into two sections: A) to process whole-genome sequencing data of the coral host to obtain high-quality SNPs for downstream analyses and B) to perform statistical analyses and visualise results. Each script is numbered to indicate its order in the analytical workflow.
+The repository is organised into two main sections: **Data** and **Scripts**. Data are separated into different sections reflecting the nature of the data files (e.g., environmental data, symbiont data etc.). Scripts are separated into two sections: A) to process whole-genome sequencing data of the coral host to obtain high-quality SNPs for downstream analyses and B) to perform statistical analyses and visualise results. Each script is numbered to indicate its order in the analytical workflow.
 
 ## 1. Data:  Raw and processed data used for analyses
 
 **All_taxa_data**  
-- `allTaxa_merged.csv`: Master merged table of taxa responses and metadata.  
-- `allTaxa_responses.csv`: Wide-format phenotype responses per sample.  
-- `allTaxa_responses_lng.csv`: Long-format response table for modeling.  
-- `allTaxa_responses_with_thermal_metrics.csv`: Response table with thermal metrics (e.g., cumulative DHW, max temp).  
+- `allTaxa_merged.csv`: Master merged table of phenotypic responses and metadata for all samples.  
+- `allTaxa_responses.csv`: Phenotype responses for all samples.  
+- `allTaxa_responses_lng.csv`: Long-format phenotype responses for all samples.  
+- `allTaxa_responses_with_thermal_metrics.csv`: Phenotype responses with thermal metrics for all samples.  
 
 **Env_data**  
-- `DHW_data.csv`: Degree Heating Week metrics.  
-- `ereef-collected.csv`: eReefs environmental variables.  
-- `Heron_Island_SST_NovMay2024.csv`: SST data for experimental period.  
-- `pc_scores_env.csv`: Environmental PCA scores from `04_env_PCA.R`.  
-- `Heron_2007_GeomorphicZoneMap/`: Geomorphic zone shapefiles for mapping.  
+- `DHW_data.csv`: Degree Heating Week data for common garden experiment thermal profile.  
+- `ereef-collected.csv`: eReefs environmental variables at collection sites.  
+- `Heron_Island_SST_NovMay2024.csv`: NOAA SST data for Heron island over heatwave period.  
+- `pc_scores_env.csv`: Environmental PCA scores.  
+- `Heron_2007_GeomorphicZoneMap/`: Geomorphic zone shapefiles for mapping Heron island reef.  
 
 **Gen_data**  
-- `5samples_metadata.csv`: Example metadata for five samples.  
-- `5samples_plink.eigenval` & `.eigenvec`: PLINK PCA outputs for five-sample test.  
-- `Spis_exp_outgroups_metadata.csv`: Metadata including outgroups.  
+- `5samples_metadata.csv`: Metadata to perform PCA on subset of five samples per taxon.  
+- `5samples_plink.eigenval` & `.eigenvec`: PLINK PCA outputs for subset of five samples per taxon  
+- `Spis_exp_outgroups_metadata.csv`: Metadata to perform PCA on all samples together with represetative samples of the S. pistillata cryptic taxa.  
 - `Spis_expe.het` & `Spis_expe.imiss`: PLINK heterozygosity & missingness reports.  
-- `Spis_experiments_filtered_prunned.eigenval` & `.eigenvec`: PCA on filtered/pruned dataset.  
-- `Spis_experiments_filtered_prunned_ibd.mdist` & `.mdist.id`: IBD/matrix distances for relatedness checks.  
-- `Spis_experiments_outgroups_filtered_prunned.eigenval` & `.eigenvec`: PCA including outgroups.  
+- `Spis_experiments_filtered_prunned.eigenval` & `.eigenvec`: PLINK PCA outputs for all samples.  
+- `Spis_experiments_filtered_prunned_ibd.mdist` & `.mdist.id`: PLINK IBD outputs for relatedness checks.  
+- `Spis_experiments_outgroups_filtered_prunned.eigenval` & `.eigenvec`: PLINK PCA output for all samples together with represetative samples of the S. pistillata cryptic taxa.  
 
 **Logger_data**  
-- `Hobo_control1.csv` & `hobo_control2.csv`: Control tank HOBO logger data.  
-- `hobo_treat1_1.csv`, `hobo_treat1_2.csv`, `hobo_treat2_1.csv`, `hobo_treat2_2.csv`: Treatment logger data.  
+- `Hobo_control1.csv`, `hobo_control2.csv`, `hobo_treat1_1.csv`, `hobo_treat1_2.csv`, `hobo_treat2_1.csv`, `hobo_treat2_2.csv`: HOBO loggers in common garden tanks 
 
 **Metadata**  
-- `Experiment_Metadata.csv`: Master experimental metadata table.  
-- `Experiment_MetadataGenetics.csv`: Genetics-specific metadata.  
-- `Experiment_coordinates_RAW.csv`: Raw collection/deployment coordinates.  
+- `Experiment_Metadata.csv`: Master metadata table.  
+- `Experiment_MetadataGenetics.csv`: Metadata for original coral colonies.  
+- `Experiment_coordinates_RAW.csv`: Collection site coordinates.  
 
 **Symbiont_data**  
-- `ITS2_rel_abundance.csv`: ITS2 relative abundance per sample.  
-- `seq_rel_abundance.csv`: Sequence-level relative abundance.  
+- `ITS2_rel_abundance.csv`: ITS2 type-profile relative abundance per sample.  
+- `seq_rel_abundance.csv`: ITS2 sequence level relative abundance per sample.  
 
 **Taxon1_data**  
-- `Taxon1_responses.csv`: Raw responses (wide format).  
-- `Taxon1_responses_filtered.csv`: Filtered dataset.  
-- `Taxon1_responses_lng.csv`: Long-format table.  
-- `Taxon1_responses_with_thermal_metrics.csv`: Responses with thermal exposure metrics.  
+- `Taxon1_responses.csv`: Phenotype responses for Taxon1 samples only.
+- `Taxon1_responses_filtered.csv`: Phenotype responses for Taxon1 samples only, excluding sites with < 5 colonies sampled.
+- `Taxon1_responses_lng.csv`: Long-format phenotype responses for Taxon1 samples only.  
+- `Taxon1_responses_with_thermal_metrics.csv`: Phenotype responses with thermal metrics for Taxon1 samples only.  
 
 ---
 
-## 2A. Scripts for whole-genome sequencing data processing
+## 2. Scripts for data processing, analyses and visualisation
 
----
-
-## 2B. Scripts for data analyses and visualisation
+**Scripts for data analyses and visualisation**
    
-**01_ereefs_data.R**  
-- Downloads/reads eReefs layers, formats and aggregates environmental variables.  
+- `01_ereefs_data.R`: Downloads/reads eReefs layers, formats and aggregates environmental variables.  
 
-**02_NOAA_data.R**  
-- Fetches and cleans NOAA SST and DHW datasets; prepares CSVs for survival analyses.  
+- `02_NOAA_data.R`: Fetches and cleans NOAA SST and DHW datasets; prepares CSVs for analyses.  
 
-**03_temperature_HOBO.R**  
-- Reads and cleans HOBO logger data; computes summary statistics and daily series.  
+- `03_temperature_HOBO.R`: Reads and cleans HOBO logger data; computes summary statistics and daily series.  
 
-**04_env_PCA.R**  
-- Performs PCA on environmental variables; outputs `pc_scores_env.csv`.  
+- `04_env_PCA.R`: Performs PCA on environmental variables.  
 
-**05_genomic_PCA.R**  
-- Processes genomic PCA on PLINK/eigenvec outputs; includes all individuals, with/without outgroups, or subsets.  
+- `05_genomic_PCA.R`: Processes genomic PLINK PCA outputs; includes all individuals, with/without outgroups, or subsets.  
 
-**06_taxon_distribution.R**  
-- Produces maps and summaries of taxon distributions.  
+- `06_taxon_distribution.R`: Produces maps and summaries of taxon distributions.  
 
-**07_data_wrangling.R**  
-- Harmonises sample IDs, merges phenotype, genotype, and metadata tables.  
+- `07_data_wrangling.R`:  Harmonises sample IDs, merges phenotype, genotype, and metadata tables.  
 
-**08_time_series.R**  
-- Generates time-series plots of temperature, bleaching, or survival trends.  
+- `08_time_series.R`: Generates time-series plots of temperature, bleaching, or survival trends.  
 
-**09_phenotypic_responses.R**  
-- Fits statistical models to phenotype response data; outputs summary tables and figures.  
+- `09_phenotypic_responses.R`: Fits statistical models to phenotype response data; outputs summary tables and figures.  
 
-**10_GLM.R**  
-- Fits GLMs for response variables (binary or count); provides diagnostics.  
+- `10_GLM.R`: Fits GLMs for response variables (binary or count); provides diagnostics.  
 
-**11_survival_analyses.R**  
-- Performs Kaplan–Meier and Cox proportional hazards analyses; outputs curves and summaries.  
+- `11_survival_analyses.R`: Performs Kaplan–Meier and Cox proportional hazards analyses; outputs curves and summaries.  
 
-**12_dhw_survival.R**  
-- Examines associations between DHW metrics and survival outcomes.  
+- `12_dhw_survival.R`: Examines associations between DHW metrics and survival outcomes.  
 
-**13_in_ex_situ.R**  
-- Compares in situ vs ex situ experimental conditions.  
+- `13_in_ex_situ.R`: Compares in situ vs ex situ experimental conditions.  
 
-**14_symbionts_ITS2.R**  
-- Processes ITS2 symbiont data; analyses community composition.    
+- `14_symbionts_ITS2.R`: Processes ITS2 symbiont data; analyses community composition.    
 
 ---
 
