@@ -12,7 +12,7 @@ In this study, we explored  thermal tolerance in the Stylophora pistillata speci
 
 The repository is organised into two main sections: Data and Scripts. 
 
-1. Data - Raw and processed data used for analyses
+### 1. Data - Raw and processed data used for analyses
      **All_taxa_data**
 
      **Env_data**
@@ -29,7 +29,7 @@ The repository is organised into two main sections: Data and Scripts.
    
 ---
 
-2. Scripts - Bash and R Scripts used for analyses. Each script is numbered to indicate its order in the analytical workflow.
+### 2. Scripts - Bash and R Scripts used for analyses. Each script is numbered to indicate its order in the analytical workflow.
    
     **Variant calling for host whole genome sequence data**  
       Scripts in this section process whole-genome sequencing data of the coral host to obtain high-quality SNPs for downstream analyses.
@@ -37,61 +37,61 @@ The repository is organised into two main sections: Data and Scripts.
     **Data analyses and visualisation**  
       R scripts used to analyse environmental, genomic, and phenotypic datasets, and to reproduce figures from the manuscript.
    
-      ### **01_ereefs_data.R**
+      **01_ereefs_data.R**
       - Retrieve temperature data from **eReefs** for sampling sites  
       - Calculate derived temperature metrics  
 
-      ### **02_NOAA_data.R**
+      **02_NOAA_data.R**
       - Obtain temperature data from **NOAA Coral Reef Watch**  
       - Calculate **Degree Heating Weeks (DHW)**  
       
-      ### **03_temperature_HOBO.R**
+      **03_temperature_HOBO.R**
       - Compare in situ logger (HOBO) temperature data with NOAA data  
       - Code reproduces **Figure 1A**
       
-      ### **04_env_PCA.R**
+      #**04_env_PCA.R**
       - Perform PCA on environmental data across sites  
       - Code reproduces **Figure SX**
       
-      ### **05_genomic_PCA.R**
+      **05_genomic_PCA.R**
       - Perform PCA on genomic SNP data  
         - For all individuals,  
         - For all individuals together with outgroup samples representive of the three cryptic taxa, and  
         - For a subset of five samples per taxon  
       - Code reproduces **Figure 2A**
       
-      ### **06_taxon_distribution.R**
+      **06_taxon_distribution.R**
       - Map taxon distributions across sampling sites  
       - Code reproduces **Figure 2C**
       
-      ### **07_data_wrangling.R**
+      **07_data_wrangling.R**
       - Reshape datasets into long format for downstream analyses  
       
-      ### **08_time_series.R**
+      **08_time_series.R**
       - Analyse bleaching data across time points  
       - Code reproduces **Figure 3A**
       
-      ### **09_phenotypic_responses.R**
+      #**09_phenotypic_responses.R**
       - Calculate phenotypic response metrics from time series data  
       
-      ### **10_GLM.R**
+      **10_GLM.R**
       - Fit Generalised Linear Models (GLMs) to phenotypic traits for all taxa and for Taxon 1 only   
       - Test model significance and estimate marginal means  
       - Code reproduces **Figure 4**
       
-      ### **11_survival_analyses.R**
+      **11_survival_analyses.R**
       - Perform survival analyses for all taxa  
       - Code reproduces **Figure 3**
       
-      ### **12_dhw_survival.R**
+      **12_dhw_survival.R**
       - Compare survival before and after peak DHW  
       - Code reproduces **Figure SX**
       
-      ### **13_in_ex_situ.R**
+      **13_in_ex_situ.R**
       - Compare in situ vs ex situ survival outcomes  
       - Code reproduces **Figure 5**
       
-      ### **14_symbionts_ITS2.R**
+      **14_symbionts_ITS2.R**
       - Analyse **SymPortal** ITS2 output data to assess symbiont community composition  
 
 ---
