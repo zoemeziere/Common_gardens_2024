@@ -10,6 +10,8 @@ In this study, we explored  thermal tolerance in the Stylophora pistillata speci
 
 ## Repository Overview
 
+---
+
 The repository is organised into two main sections: Data and Scripts. 
 
 ### 1. Data - Raw and processed data used for analyses
@@ -26,8 +28,6 @@ The repository is organised into two main sections: Data and Scripts.
      **Symbiont_data**
 
      **Taxon1_data**
-   
----
 
 ### 2. Scripts - Bash and R Scripts used for analyses. Each script is numbered to indicate its order in the analytical workflow.
    
@@ -97,6 +97,8 @@ The repository is organised into two main sections: Data and Scripts.
 ---
 
 ## Reproducibility Notes
+
+---
 
 - Analyses were performed in **R version 4.3**.  
 - Required R packages are listed at the beginning of each script.
