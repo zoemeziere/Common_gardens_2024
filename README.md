@@ -10,7 +10,6 @@ In this study, we explored  thermal tolerance in the Stylophora pistillata speci
 
 ## Repository Overview
 
----
 
 The repository is organised into two main sections: Data and Scripts. 
 
@@ -98,7 +97,6 @@ The repository is organised into two main sections: Data and Scripts.
 
 ## Reproducibility Notes
 
----
 
 - Analyses were performed in **R version 4.3**.  
 - Required R packages are listed at the beginning of each script.
