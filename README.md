@@ -4,6 +4,8 @@ This repository contains scripts and supporting data for the manuscript:
 
 > **Thermal stress responses and survival differ among closely related coral taxa of the *Stylophora pistillata* species complex during a heatwave**
 
+In this study, we explored  thermal tolerance in the Stylophora pistillata species complex during the 2024 marine heatwave at Heron Island Reef, Australia. We used a long-term common garden experiment that mimced the heatwave thermal profile and  quantified inter- and intra-specific differences in bleaching and survival. We found distinct heat-stress responses between the three cryptic taxa, but weak evidence of within-taxon local acclimatisation or adaptation among reef habitats. Importantly, survival patterns in the common garden mirrored those on the reef. Overall, this study highlights complex interactions among host identity, symbiont community, and environmental history in shaping coral thermal tolerance.
+
 ---
 
 ## Repository Overview
