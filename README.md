@@ -14,19 +14,19 @@ In this study, we explored  thermal tolerance in the Stylophora pistillata speci
 The repository is organised into two main sections: Data and Scripts. 
 
 1. Data - Raw and processed data used for analyses
-     **All_taxa_data**
+    - **All_taxa_data**
 
-     **Env_data**
+    - **Env_data**
 
-     **Gen_data**
+    - **Gen_data**
 
-     **Logger_data**
+    - **Logger_data**
 
-     **Metadata**
+    - **Metadata**
 
-     **Symbiont_data**
+    - **Symbiont_data**
 
-     **Taxon1_data**
+    - **Taxon1_data**
 
 2. Scripts - Bash and R Scripts used for analyses. Each script is numbered to indicate its order in the analytical workflow.
    
