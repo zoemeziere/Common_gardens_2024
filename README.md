@@ -12,6 +12,10 @@ In this study, we explored  thermal tolerance in the Stylophora pistillata speci
 
 The repository is organised into two main sections:
 
+1. Data - Raw and processed data used for analyses
+   
+2. Scripts - Bash and R Scripts used for analyses
+   
  **A. Variant calling for host whole genome sequence data**  
    Scripts for processing raw sequencing reads, variant calling, and quality control.
 
