@@ -14,15 +14,13 @@ The repository is organised into two main sections:
 
 1. Data - Raw and processed data used for analyses
    
-2. Scripts - Bash and R Scripts used for analyses
+2. Scripts - Bash and R Scripts used for analyses. Each script is numbered to indicate its order in the analytical workflow.
    
- **A. Variant calling for host whole genome sequence data**  
-   Scripts for processing raw sequencing reads, variant calling, and quality control.
+    **A. Variant calling for host whole genome sequence data**  
+      Bash scripts for processing raw sequencing reads, variant calling, and quality control.
 
- **B. Data analyses and visualisation**  
-   R scripts used to analyse environmental, genomic, and phenotypic datasets, and to reproduce figures from the manuscript.
-
-Each script is numbered to indicate its order in the analytical workflow.
+    **B. Data analyses and visualisation**  
+      R scripts used to analyse environmental, genomic, and phenotypic datasets, and to reproduce figures from the manuscript.
 
 ---
 
