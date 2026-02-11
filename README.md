@@ -2,7 +2,7 @@
 
 This repository contains scripts and supporting data for the manuscript:
 
-> ** Heatwave winners and losers: cryptic coral holobionts differ in thermal tolerance **
+> Heatwave winners and losers: cryptic coral holobionts differ in thermal tolerance
 
 In this study, we explored  thermal tolerance in the *Stylophora pistillata* species complex during the 2024 marine heatwave at Heron Island Reef, Australia. We used a long-term (3 months) common garden experiment that mimicked the heatwave thermal profile and we quantified inter- and intra-specific differences in bleaching and survival among coral fragments. We found distinct heat-stress responses between the three cryptic host taxa and their associated symbionts. However, we found weak evidence of within-taxon local acclimatisation or adaptation among reef habitats. Importantly, survival patterns in the common garden experiment mirrored those on the reef. Overall, this study highlights complex interactions among host identity, symbiont community, and environmental history in shaping coral thermal tolerance.
 
