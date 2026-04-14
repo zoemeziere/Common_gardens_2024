@@ -34,6 +34,16 @@ hr_df <- data.frame(
 
 hr_df
 
+# Does addting Taxon significantly improve the model?
+
+model_full  <- coxme(surv_object ~ Taxon + (1 | SumpID/TankID) + (1 | IndividualID),
+                     data = experiments_metadata_lng)
+
+model_null  <- coxme(surv_object ~ (1 | SumpID/TankID) + (1 | IndividualID),
+                     data = experiments_metadata_lng)
+
+anova(model_null, model_full)
+
 # 3. Survival analyses in Taxon1
 Taxon1_data_lng <- read.csv("Data/Taxon1_data/Taxon1_data_lng.csv")
 
