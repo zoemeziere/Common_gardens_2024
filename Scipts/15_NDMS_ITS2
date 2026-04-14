@@ -1,0 +1,62 @@
+# ------------------------------
+# NMDS of DIV counts per sample
+# ------------------------------
+
+library(vegan)
+metadata <- read.csv("~/Documents/PhD/Chapter4_analyses/Data/Analysis_data/All_taxa_data/Experiment_MetadataGenetics.csv")
+data <- read.csv("divs_duplicates.csv", stringsAsFactors = FALSE)
+
+# 1. Extract sample names and metadata and merge
+data$base_sample <- sub("(T1|T2|C)$", "", data$sample_name)
+
+lookup <- data.frame(
+  base_sample = paste0("Spis-", sprintf("%02d", 1:80)),  # Spis-01 ... Spis-80
+  IndividualID = paste0("EXP", sprintf("%02d", 1:80)))    # EXP01 ... EXP80
+
+lookup <- merge(lookup, metadata[, c("IndividualID", "EcoLocationID", "Taxon", "Depth")],
+                by = "IndividualID", all.x = TRUE)
+
+data <- merge(data, lookup[, c("base_sample", "EcoLocationID", "Taxon", "Depth")],
+              by = "base_sample", all.x = TRUE, sort = FALSE)
+
+data$Type <- ifelse(grepl("(T1|T2|C)$", data$sample_name), "Experimental", "Wild")
+
+# 2. Extract only the numeric abundance matrix
+sample_names <- data$sample_name
+comm <- data[, !(names(data) %in% c("sample_name", "EcoLocationID", "Type", "Taxon", "Depth", "base_sample"))]
+
+comm <- comm[, colSums(comm, na.rm=TRUE) > 0] # Remove columns that are all zeros
+comm_std <- wisconsin(comm) #Wisconsin double standardization
+dist_bc <- vegdist(comm_std, method="bray") #Bray-Curtis distance
+
+# 6. Run NMDS and plot
+nmds <- metaMDS(dist_bc, k=2, trymax=100)
+
+par(mar = c(5, 4, 4, 10))
+plot_factor <- data$Taxon # can be changed
+factor_levels <- unique(plot_factor)
+cols <- brewer.pal(min(length(factor_levels), 8), "Set2")
+point_col <- cols[as.numeric(factor(plot_factor))]
+
+plot(nmds$points[,1], nmds$points[,2], 
+     col = point_col, pch = 19, cex = 2,
+     xlab = "NMDS1", ylab = "NMDS2")
+
+legend("topright", inset = c(-0.6,0), legend = factor_levels, 
+       col = cols, pch = 19, cex = 0.8, xpd = TRUE)
+
+# 7. PERMANOVA
+perm_meta <- data.frame(
+  Genotype = data$base_sample,
+  HostTaxon = data$Taxon,
+  Location = data$EcoLocationID,
+  Depth = data$Depth,
+  Type = data$Type)
+
+adonis2(comm_std ~ Depth + HostTaxon + Type + Location,
+        data = perm_meta,
+        method = "bray",
+        permutations = 999,
+        strata = perm_meta$Genotype,
+        by = "margin")
+
