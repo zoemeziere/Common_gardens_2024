@@ -56,7 +56,7 @@ The repository is organised into two main sections: **Data** and **Scripts**. Da
 
 ---
 
-## 2. Scripts for data processing, analyses and visualisation
+## 2. Scripts: All R scripts used for data processing, analyses and visualisation
 
 **Scripts for data analyses and visualisation**
    
@@ -90,7 +90,7 @@ The repository is organised into two main sections: **Data** and **Scripts**. Da
 
 ---
 
-## Reproducibility Notes
+## 3. Reproducibility notes
 
 
 - Analyses were performed in **R version 4.3**.  
